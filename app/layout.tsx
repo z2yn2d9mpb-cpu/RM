@@ -1,20 +1,28 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Caveat, DM_Sans, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const caveat = Caveat({
   subsets: ["latin"],
+  weight: ["500", "600", "700"],
+  variable: "--font-caveat",
 });
 
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const dmSans = DM_Sans({
   subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-dm-sans",
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  weight: ["400", "500", "700"],
+  variable: "--font-jetbrains",
 });
 
 export const metadata: Metadata = {
-  title: "Ryan20",
-  description: "Welcome!",
+  title: "Hoera, Ryan is 20! · The Ryan Chronicles",
+  description: "Een postkaart door twintig jaar — een verjaardagskaart voor Ryan.",
 };
 
 export default function RootLayout({
@@ -23,8 +31,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
+    <html lang="nl">
+      <body className={`${caveat.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}>
         {children}
       </body>
     </html>
