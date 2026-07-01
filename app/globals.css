@@ -97,3 +97,117 @@ body {
     transform: rotate(9deg);
   }
 }
+
+/* ---- arcade (/arcade) ---- */
+@keyframes neonPulse {
+  0%,
+  100% {
+    text-shadow: 0 0 6px #ff5bb0, 0 0 18px #ff5bb0;
+  }
+  50% {
+    text-shadow: 0 0 12px #ff5bb0, 0 0 34px #c23bd6;
+  }
+}
+@keyframes bob {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-9px);
+  }
+}
+@keyframes bubbleUp {
+  0% {
+    transform: translateY(0) scale(0.5);
+    opacity: 0;
+  }
+  25% {
+    opacity: 0.95;
+  }
+  100% {
+    transform: translateY(-150px) scale(1.1);
+    opacity: 0;
+  }
+}
+@keyframes foodDrop {
+  0% {
+    transform: translate(-50%, -170px);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  80% {
+    transform: translate(-50%, -8px);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(-50%, -8px);
+    opacity: 0;
+  }
+}
+@keyframes pop {
+  0% {
+    transform: translateX(-50%) scale(0.4);
+    opacity: 0;
+  }
+  60% {
+    transform: translateX(-50%) scale(1.08);
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 1;
+  }
+}
+@keyframes floatUp {
+  0% {
+    transform: translateY(0) scale(0.8);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(-95px) scale(1.1);
+    opacity: 0;
+  }
+}
+@keyframes squish {
+  0% {
+    transform: scale(1, 1);
+  }
+  30% {
+    transform: scale(1.12, 0.88);
+  }
+  60% {
+    transform: scale(0.94, 1.06);
+  }
+  100% {
+    transform: scale(1, 1);
+  }
+}
+@keyframes swipe {
+  0% {
+    transform: translateX(-120px) rotate(-8deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(120px) rotate(8deg);
+    opacity: 0;
+  }
+}
+@keyframes blinkCoin {
+  0%,
+  60%,
+  100% {
+    opacity: 1;
+  }
+  80% {
+    opacity: 0.25;
+  }
+}

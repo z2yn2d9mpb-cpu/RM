@@ -107,8 +107,10 @@ function loadGlobeDeps() {
         "https://cdn.jsdelivr.net/npm/topojson-client@3/dist/topojson-client.min.js",
       );
     }
+    // 110m atlas (not 50m): ~10x less geometry, so redrawing the whole globe
+    // every scroll frame stays under the frame budget and the scroll is smooth.
     const r = await fetch(
-      "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-50m.json",
+      "https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json",
     );
     const topo = await r.json();
     return { d3: w.d3, topojson: w.topojson, topo };
@@ -516,9 +518,13 @@ function GlobeSection() {
     const GOES: [number, number] = [3.89, 51.5];
 
     const g: any = { W: 0, H: 0, ready: false };
+    let lastP = -1;
+    let lastReady = false;
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      // Cap DPR at 1.5: full-globe redraws are fill-bound, so fewer device
+      // pixels directly cuts per-frame cost on hi-dpi screens.
+      const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
       const W = canvas.clientWidth;
       const H = canvas.clientHeight;
       canvas.width = Math.round(W * dpr);
@@ -539,6 +545,12 @@ function GlobeSection() {
       const p = clamp(-rect.top / total, 0, 1);
       if (hintRef.current)
         hintRef.current.style.opacity = String(clamp(1 - p * 4, 0, 1));
+
+      // Skip redundant redraws: scroll fires far more often than the globe
+      // meaningfully moves, and each redraw is expensive.
+      if (Math.abs(p - lastP) < 0.0004 && g.ready === lastReady) return;
+      lastP = p;
+      lastReady = g.ready;
 
       const baseR = 0.46 * Math.min(W, H);
       const camT = easeInOut(clamp((p - 0.04) / 0.6, 0, 1));
