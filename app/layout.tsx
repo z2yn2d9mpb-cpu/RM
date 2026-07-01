@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Caveat, DM_Sans, JetBrains_Mono } from "next/font/google";
+import { Caveat, DM_Sans, JetBrains_Mono, Press_Start_2P } from "next/font/google";
 import "./globals.css";
 
 const caveat = Caveat({
@@ -20,6 +20,12 @@ const jetbrainsMono = JetBrains_Mono({
   variable: "--font-jetbrains",
 });
 
+const pressStart = Press_Start_2P({
+  subsets: ["latin"],
+  weight: ["400"],
+  variable: "--font-press-start",
+});
+
 export const metadata: Metadata = {
   title: "Hoera, Ryan is 20! · The Ryan Chronicles",
   description: "Een postkaart door twintig jaar — een verjaardagskaart voor Ryan.",
@@ -32,7 +38,9 @@ export default function RootLayout({
 }) {
   return (
     <html lang="nl">
-      <body className={`${caveat.variable} ${dmSans.variable} ${jetbrainsMono.variable}`}>
+      <body
+        className={`${caveat.variable} ${dmSans.variable} ${jetbrainsMono.variable} ${pressStart.variable}`}
+      >
         {children}
       </body>
     </html>

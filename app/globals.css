@@ -54,3 +54,46 @@ body {
     transform: translateY(-7px) rotate(4deg);
   }
 }
+
+@keyframes peekRight {
+  0%,
+  10% {
+    transform: translateX(0) rotate(2deg);
+  }
+  26%,
+  44% {
+    transform: translateX(118px) rotate(2deg);
+  }
+  62%,
+  100% {
+    transform: translateX(0) rotate(2deg);
+  }
+}
+
+@keyframes peekLeft {
+  0%,
+  10% {
+    transform: translateX(0) rotate(-2deg);
+  }
+  26%,
+  44% {
+    transform: translateX(-118px) rotate(-2deg);
+  }
+  62%,
+  100% {
+    transform: translateX(0) rotate(-2deg);
+  }
+}
+
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  25% {
+    transform: rotate(-9deg);
+  }
+  75% {
+    transform: rotate(9deg);
+  }
+}

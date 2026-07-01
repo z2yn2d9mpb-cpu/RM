@@ -7,6 +7,13 @@ export type Milestone = {
   text: string;
   /** Ages 0, 2, 5, 8, 10, 13, 15, 18, 19, 20 show a photo placeholder. */
   photo?: boolean;
+  /** Ages 16-20 show a "klik mij niet" peeker that unlocks the secret page. */
+  peek?: boolean;
+  /** Which side the peeker pokes out from. */
+  peekSide?: "left" | "right";
+  /** Flavour flags carried through from the design (not rendered directly). */
+  trip?: boolean;
+  big?: boolean;
 };
 
 export const milestones: Milestone[] = [
@@ -26,11 +33,11 @@ export const milestones: Milestone[] = [
   { age: "13", title: "Tiener", text: "Officieel tiener. Het ogenrollen begon.", photo: true },
   { age: "14", title: "Zijn ding vinden", text: "Begon te ontdekken waar hij écht van hield." },
   { age: "15", title: "De crew", text: "Vriendschappen die er nu nog steeds zijn.", photo: true },
-  { age: "16", title: "Onafhankelijk", text: "Eerste baantje, eerste echte vrijheid." },
-  { age: "17", title: "Grote dromen", text: "Plannen groter dan de muren van zijn kamer." },
-  { age: "18", title: "Volwassen", text: "Achttien — en klaar voor de wereld.", photo: true },
-  { age: "19", title: "Griekenland roept", text: "Op naar Corfu voor een stage bij Ikos Dassia. Het avontuur van het jaar.", photo: true },
-  { age: "20", title: "Twintig", text: "En hier zijn we. Gefeliciteerd Ryan — deze is voor jou.", photo: true },
+  { age: "16", title: "Onafhankelijk", text: "Eerste baantje, eerste echte vrijheid.", peek: true, peekSide: "right" },
+  { age: "17", title: "Grote dromen", text: "Plannen groter dan de muren van zijn kamer.", peek: true, peekSide: "left" },
+  { age: "18", title: "Volwassen", text: "Achttien — en klaar voor de wereld.", photo: true, peek: true, peekSide: "right" },
+  { age: "19", title: "Griekenland roept", text: "Op naar Corfu voor een stage bij Ikos Dassia. Het avontuur van het jaar.", photo: true, trip: true, peek: true, peekSide: "left" },
+  { age: "20", title: "Twintig", text: "En hier zijn we. Gefeliciteerd Ryan — deze is voor jou.", photo: true, big: true, peek: true, peekSide: "right" },
 ];
 
 export type GalleryItem = {
