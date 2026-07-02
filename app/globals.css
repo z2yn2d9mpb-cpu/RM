@@ -8,6 +8,9 @@ html,
 body {
   margin: 0;
   padding: 0;
+  /* Nothing may widen the page on mobile; "clip" (not "hidden") keeps
+     position: sticky working inside the globe section. */
+  overflow-x: clip;
 }
 
 body {
@@ -55,33 +58,38 @@ body {
   }
 }
 
-@keyframes peekRight {
+/* Easter egg: the "klik mij niet" button shyly slides out from under the
+   bottom edge of the age-20 card, then hides again. */
+@keyframes peekBottom {
   0%,
-  10% {
-    transform: translateX(0) rotate(2deg);
+  16% {
+    transform: translateX(-50%) translateY(10px) rotate(-2deg);
   }
-  26%,
-  44% {
-    transform: translateX(118px) rotate(2deg);
+  32%,
+  58% {
+    transform: translateX(-50%) translateY(26px) rotate(1.5deg);
   }
-  62%,
+  74%,
   100% {
-    transform: translateX(0) rotate(2deg);
+    transform: translateX(-50%) translateY(10px) rotate(-2deg);
   }
 }
 
-@keyframes peekLeft {
-  0%,
-  10% {
-    transform: translateX(0) rotate(-2deg);
+/* Globe scroll track: svh units stay constant while the mobile URL bar
+   collapses, so the sticky scene doesn't jump mid-scroll. vh is the
+   fallback for older browsers. */
+.globe-track {
+  height: 340vh;
+}
+.globe-sticky {
+  height: 100vh;
+}
+@supports (height: 100svh) {
+  .globe-track {
+    height: 340svh;
   }
-  26%,
-  44% {
-    transform: translateX(-118px) rotate(-2deg);
-  }
-  62%,
-  100% {
-    transform: translateX(0) rotate(-2deg);
+  .globe-sticky {
+    height: 100svh;
   }
 }
 

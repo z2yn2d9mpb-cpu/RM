@@ -12,20 +12,20 @@
 import { useEffect, useRef } from "react";
 
 const RAW_ARCADE_HTML = `
-<div style="position: relative; min-height: 100vh; background: radial-gradient(120% 80% at 50% 0%, #2a1543 0%, #160c28 55%, #0e0720 100%); color: #fff; font-family: 'DM Sans', sans-serif; overflow: hidden;">
+<div style="position: relative; min-height: 100vh; min-height: 100svh; background: radial-gradient(120% 80% at 50% 0%, #2a1543 0%, #160c28 55%, #0e0720 100%); color: #fff; font-family: 'DM Sans', sans-serif; overflow: hidden; -webkit-tap-highlight-color: transparent;">
 
   <div style="position: fixed; inset: 0; z-index: 40; pointer-events: none; background: repeating-linear-gradient(rgba(255,255,255,.03) 0 1px, transparent 1px 3px);"></div>
 
-  <a href="Ryan Birthday Card.html" style="position: fixed; top: 14px; left: 14px; z-index: 30; display: inline-flex; align-items: center; gap: 7px; padding: 9px 14px; background: rgba(255,255,255,.08); color: #fff; border: 1.5px solid rgba(255,255,255,.3); border-radius: 999px; font: 600 12px 'DM Sans', sans-serif; text-decoration: none; backdrop-filter: blur(4px);">← terug naar de kaart</a>
+  <a href="Ryan Birthday Card.html" data-back-link="" style="position: fixed; top: calc(14px + env(safe-area-inset-top, 0px)); left: 14px; z-index: 30; display: inline-flex; align-items: center; gap: 7px; padding: 9px 14px; background: rgba(255,255,255,.08); color: #fff; border: 1.5px solid rgba(255,255,255,.3); border-radius: 999px; font: 600 12px 'DM Sans', sans-serif; text-decoration: none; backdrop-filter: blur(4px);">← terug naar de kaart</a>
 
   <!-- ================= MENU ================= -->
-  <section data-screen="menu" data-screen-label="Arcade menu" style="position: relative; z-index: 10; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 76px 20px 40px; text-align: center;">
+  <section data-screen="menu" data-screen-label="Arcade menu" style="position: relative; z-index: 10; min-height: 100vh; min-height: 100svh; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: calc(76px + env(safe-area-inset-top, 0px)) 20px calc(40px + env(safe-area-inset-bottom, 0px)); text-align: center;">
     <div style="font: 400 10px 'Press Start 2P', monospace; color: #6de0ff; letter-spacing: 2px; animation: blinkCoin 1.4s steps(1) infinite;">▶ INSERT COIN</div>
     <h1 style="font: 400 42px/1.1 'Press Start 2P', monospace; margin: 20px 0 10px; color: #ff5bb0; animation: neonPulse 2.2s ease-in-out infinite;">ARCADE</h1>
     <div style="font: 700 21px Caveat, cursive; color: #ffd76b; margin-bottom: 28px;">Ryan's verjaardag · kies je game</div>
 
     <div style="display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 380px;">
-      <button data-game="invaders" style="text-align: left; cursor: pointer; display: flex; gap: 14px; align-items: center; padding: 16px; background: linear-gradient(135deg, rgba(109,224,255,.16), rgba(255,255,255,.03)); border: 2px solid #6de0ff; border-radius: 14px; color: #fff; box-shadow: 0 0 20px -7px #6de0ff;">
+      <button data-game="invaders" style="text-align: left; cursor: pointer; touch-action: manipulation; display: flex; gap: 14px; align-items: center; padding: 16px; background: linear-gradient(135deg, rgba(109,224,255,.16), rgba(255,255,255,.03)); border: 2px solid #6de0ff; border-radius: 14px; color: #fff; box-shadow: 0 0 20px -7px #6de0ff;">
         <div style="flex: 0 0 56px; height: 56px; border-radius: 10px; background: #0e0720; border: 2px solid #6de0ff; display: flex; align-items: center; justify-content: center; font: 400 11px 'Press Start 2P', monospace; color: #6de0ff;">01</div>
         <div style="flex: 1;">
           <div style="font: 400 13px 'Press Start 2P', monospace; color: #6de0ff; margin-bottom: 7px;">INVADERS</div>
@@ -34,7 +34,7 @@ const RAW_ARCADE_HTML = `
         <div style="font: 400 9px 'Press Start 2P', monospace; color: #ffd76b; white-space: nowrap;">PLAY ▶</div>
       </button>
 
-      <button data-game="flappy" style="text-align: left; cursor: pointer; display: flex; gap: 14px; align-items: center; padding: 16px; background: linear-gradient(135deg, rgba(255,215,107,.16), rgba(255,255,255,.03)); border: 2px solid #ffd76b; border-radius: 14px; color: #fff; box-shadow: 0 0 20px -7px #ffd76b;">
+      <button data-game="flappy" style="text-align: left; cursor: pointer; touch-action: manipulation; display: flex; gap: 14px; align-items: center; padding: 16px; background: linear-gradient(135deg, rgba(255,215,107,.16), rgba(255,255,255,.03)); border: 2px solid #ffd76b; border-radius: 14px; color: #fff; box-shadow: 0 0 20px -7px #ffd76b;">
         <div style="flex: 0 0 56px; height: 56px; border-radius: 10px; background: #0e0720; border: 2px solid #ffd76b; display: flex; align-items: center; justify-content: center; font: 400 11px 'Press Start 2P', monospace; color: #ffd76b;">02</div>
         <div style="flex: 1;">
           <div style="font: 400 13px 'Press Start 2P', monospace; color: #ffd76b; margin-bottom: 7px;">FLAPPY</div>
@@ -43,7 +43,7 @@ const RAW_ARCADE_HTML = `
         <div style="font: 400 9px 'Press Start 2P', monospace; color: #6de0ff; white-space: nowrap;">PLAY ▶</div>
       </button>
 
-      <button data-game="pou" style="text-align: left; cursor: pointer; display: flex; gap: 14px; align-items: center; padding: 16px; background: linear-gradient(135deg, rgba(125,255,176,.16), rgba(255,255,255,.03)); border: 2px solid #7dffb0; border-radius: 14px; color: #fff; box-shadow: 0 0 20px -7px #7dffb0;">
+      <button data-game="pou" style="text-align: left; cursor: pointer; touch-action: manipulation; display: flex; gap: 14px; align-items: center; padding: 16px; background: linear-gradient(135deg, rgba(125,255,176,.16), rgba(255,255,255,.03)); border: 2px solid #7dffb0; border-radius: 14px; color: #fff; box-shadow: 0 0 20px -7px #7dffb0;">
         <div style="flex: 0 0 56px; height: 56px; border-radius: 10px; background: #0e0720; border: 2px solid #7dffb0; display: flex; align-items: center; justify-content: center; font: 400 11px 'Press Start 2P', monospace; color: #7dffb0;">03</div>
         <div style="flex: 1;">
           <div style="font: 400 13px 'Press Start 2P', monospace; color: #7dffb0; margin-bottom: 7px;">POU RYAN</div>
@@ -57,9 +57,9 @@ const RAW_ARCADE_HTML = `
   </section>
 
   <!-- ================= INVADERS ================= -->
-  <section data-screen="invaders" data-screen-label="Invaders" style="display: none; position: relative; z-index: 10; height: 100vh; flex-direction: column;">
-    <div style="flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid rgba(109,224,255,.25);">
-      <button data-menu="" style="cursor: pointer; padding: 8px 12px; background: rgba(255,255,255,.08); color: #fff; border: 1.5px solid rgba(255,255,255,.3); border-radius: 8px; font: 400 8px 'Press Start 2P', monospace;">◀ MENU</button>
+  <section data-screen="invaders" data-screen-label="Invaders" style="display: none; position: relative; z-index: 10; height: 100vh; height: 100svh; flex-direction: column;">
+    <div style="flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; padding: calc(12px + env(safe-area-inset-top, 0px)) 16px 12px; border-bottom: 1px solid rgba(109,224,255,.25);">
+      <button data-menu="" style="cursor: pointer; touch-action: manipulation; padding: 10px 14px; background: rgba(255,255,255,.08); color: #fff; border: 1.5px solid rgba(255,255,255,.3); border-radius: 8px; font: 400 8px 'Press Start 2P', monospace;">◀ MENU</button>
       <div style="font: 400 11px 'Press Start 2P', monospace; color: #6de0ff;">INVADERS</div>
       <div data-inv-score="" style="font: 400 9px 'Press Start 2P', monospace; color: #ffd76b;">SCORE 0</div>
     </div>
@@ -70,19 +70,19 @@ const RAW_ARCADE_HTML = `
         <div style="font: 400 9px 'Press Start 2P', monospace; color: #fff;">tik om te spelen</div>
       </div>
     </div>
-    <div style="flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 14px 16px 22px;">
-      <div style="display: flex; gap: 12px;">
-        <button data-inv-left="" style="width: 64px; height: 56px; border-radius: 12px; background: rgba(255,255,255,.1); border: 2px solid #6de0ff; color: #6de0ff; font-size: 22px; cursor: pointer;">◀</button>
-        <button data-inv-right="" style="width: 64px; height: 56px; border-radius: 12px; background: rgba(255,255,255,.1); border: 2px solid #6de0ff; color: #6de0ff; font-size: 22px; cursor: pointer;">▶</button>
+    <div style="flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 12px 14px calc(14px + env(safe-area-inset-bottom, 8px));">
+      <div style="display: flex; gap: 10px; flex: 1 1 auto; min-width: 0;">
+        <button data-inv-left="" style="flex: 1 1 0; max-width: 76px; min-width: 52px; height: 56px; border-radius: 12px; background: rgba(255,255,255,.1); border: 2px solid #6de0ff; color: #6de0ff; font-size: 22px; cursor: pointer; touch-action: none; user-select: none; -webkit-user-select: none;">◀</button>
+        <button data-inv-right="" style="flex: 1 1 0; max-width: 76px; min-width: 52px; height: 56px; border-radius: 12px; background: rgba(255,255,255,.1); border: 2px solid #6de0ff; color: #6de0ff; font-size: 22px; cursor: pointer; touch-action: none; user-select: none; -webkit-user-select: none;">▶</button>
       </div>
-      <button data-inv-fire="" style="flex: 1; max-width: 150px; height: 56px; border-radius: 12px; background: linear-gradient(#ff5bb0,#c23bd6); border: 2px solid #fff; color: #fff; font: 400 11px 'Press Start 2P', monospace; cursor: pointer;">FIRE</button>
+      <button data-inv-fire="" style="flex: 1 1 0; max-width: 150px; min-width: 92px; height: 56px; border-radius: 12px; background: linear-gradient(#ff5bb0,#c23bd6); border: 2px solid #fff; color: #fff; font: 400 11px 'Press Start 2P', monospace; cursor: pointer; touch-action: none; user-select: none; -webkit-user-select: none;">FIRE</button>
     </div>
   </section>
 
   <!-- ================= FLAPPY ================= -->
-  <section data-screen="flappy" data-screen-label="Flappy" style="display: none; position: relative; z-index: 10; height: 100vh; flex-direction: column;">
-    <div style="flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 14px 16px; border-bottom: 1px solid rgba(255,215,107,.25);">
-      <button data-menu="" style="cursor: pointer; padding: 8px 12px; background: rgba(255,255,255,.08); color: #fff; border: 1.5px solid rgba(255,255,255,.3); border-radius: 8px; font: 400 8px 'Press Start 2P', monospace;">◀ MENU</button>
+  <section data-screen="flappy" data-screen-label="Flappy" style="display: none; position: relative; z-index: 10; height: 100vh; height: 100svh; flex-direction: column;">
+    <div style="flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; padding: calc(12px + env(safe-area-inset-top, 0px)) 16px 12px; border-bottom: 1px solid rgba(255,215,107,.25);">
+      <button data-menu="" style="cursor: pointer; touch-action: manipulation; padding: 10px 14px; background: rgba(255,255,255,.08); color: #fff; border: 1.5px solid rgba(255,255,255,.3); border-radius: 8px; font: 400 8px 'Press Start 2P', monospace;">◀ MENU</button>
       <div style="font: 400 11px 'Press Start 2P', monospace; color: #ffd76b;">FLAPPY</div>
       <div data-flap-score="" style="font: 400 9px 'Press Start 2P', monospace; color: #6de0ff;">0</div>
     </div>
@@ -96,9 +96,9 @@ const RAW_ARCADE_HTML = `
   </section>
 
   <!-- ================= POU ================= -->
-  <section data-screen="pou" data-screen-label="Pou" style="display: none; position: relative; z-index: 10; min-height: 100vh; flex-direction: column; padding: 60px 20px 24px;">
+  <section data-screen="pou" data-screen-label="Pou" style="display: none; position: relative; z-index: 10; height: 100vh; height: 100svh; flex-direction: column; overflow: hidden; padding: calc(12px + env(safe-area-inset-top, 0px)) 18px calc(16px + env(safe-area-inset-bottom, 8px));">
     <div style="flex: 0 0 auto; display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-      <button data-menu="" style="cursor: pointer; padding: 8px 12px; background: rgba(255,255,255,.08); color: #fff; border: 1.5px solid rgba(255,255,255,.3); border-radius: 8px; font: 400 8px 'Press Start 2P', monospace;">◀ MENU</button>
+      <button data-menu="" style="cursor: pointer; touch-action: manipulation; padding: 10px 14px; background: rgba(255,255,255,.08); color: #fff; border: 1.5px solid rgba(255,255,255,.3); border-radius: 8px; font: 400 8px 'Press Start 2P', monospace;">◀ MENU</button>
       <div style="font: 400 11px 'Press Start 2P', monospace; color: #7dffb0;">POU RYAN</div>
       <div data-pou-mood="" style="font: 700 18px Caveat, cursive; color: #ffd76b;">Blij!</div>
     </div>
@@ -109,19 +109,19 @@ const RAW_ARCADE_HTML = `
       <div style="display: flex; align-items: center; gap: 10px;"><span style="font: 400 8px 'Press Start 2P', monospace; color: #ff5bb0; width: 62px;">BLIJ</span><div style="flex: 1; height: 14px; background: rgba(255,255,255,.1); border-radius: 999px; overflow: hidden;"><div data-bar-blij="" style="height: 100%; width: 70%; background: #ff5bb0; transition: width .3s ease;"></div></div></div>
     </div>
 
-    <div data-pou-stage="" style="position: relative; flex: 1 1 auto; min-height: 240px; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-      <div data-pou="" style="position: relative; width: 180px; height: 200px; animation: bob 3s ease-in-out infinite;">
+    <div data-pou-stage="" style="position: relative; flex: 1 1 auto; min-height: 0; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+      <div data-pou="" style="position: relative; height: min(200px, 88%); aspect-ratio: 9 / 10; animation: bob 3s ease-in-out infinite;">
         <div style="position: absolute; inset: 0; border-radius: 48% 48% 44% 44% / 58% 58% 42% 42%; background: radial-gradient(120% 120% at 40% 30%, #a06a44, #7a4a2c 70%); border: 3px solid #5a3720; box-shadow: inset 0 -18px 30px -10px rgba(0,0,0,.4), 0 18px 30px -14px rgba(0,0,0,.6);"></div>
-        <div style="position: absolute; left: 34px; bottom: -6px; width: 34px; height: 20px; border-radius: 0 0 40% 40%; background: #6b3f26; border: 3px solid #5a3720;"></div>
-        <div style="position: absolute; right: 34px; bottom: -6px; width: 34px; height: 20px; border-radius: 0 0 40% 40%; background: #6b3f26; border: 3px solid #5a3720;"></div>
-        <div data-pou-face="" style="position: absolute; left: 50%; top: 42%; transform: translate(-50%,-50%); width: 104px; height: 104px; border-radius: 22px; background-color: #ffd3b0; background-size: cover; background-position: center; border: 3px solid #5a3720; box-shadow: inset 0 0 0 2px rgba(255,255,255,.3);"></div>
+        <div style="position: absolute; left: 19%; bottom: -3%; width: 19%; height: 10%; border-radius: 0 0 40% 40%; background: #6b3f26; border: 3px solid #5a3720;"></div>
+        <div style="position: absolute; right: 19%; bottom: -3%; width: 19%; height: 10%; border-radius: 0 0 40% 40%; background: #6b3f26; border: 3px solid #5a3720;"></div>
+        <div data-pou-face="" style="position: absolute; left: 50%; top: 42%; transform: translate(-50%,-50%); width: 58%; aspect-ratio: 1 / 1; border-radius: 21%; background-color: #ffd3b0; background-size: cover; background-position: center; border: 3px solid #5a3720; box-shadow: inset 0 0 0 2px rgba(255,255,255,.3);"></div>
       </div>
     </div>
 
-    <div style="display: flex; gap: 12px; width: 100%; max-width: 380px; margin: 12px auto 0;">
-      <button data-pou-feed="" style="flex: 1; padding: 15px 6px; border-radius: 12px; background: rgba(125,255,176,.14); border: 2px solid #7dffb0; color: #7dffb0; font: 400 9px 'Press Start 2P', monospace; cursor: pointer;">VOEDEN</button>
-      <button data-pou-clean="" style="flex: 1; padding: 15px 6px; border-radius: 12px; background: rgba(109,224,255,.14); border: 2px solid #6de0ff; color: #6de0ff; font: 400 9px 'Press Start 2P', monospace; cursor: pointer;">WASSEN</button>
-      <button data-pou-tickle="" style="flex: 1; padding: 15px 6px; border-radius: 12px; background: rgba(255,91,176,.14); border: 2px solid #ff5bb0; color: #ff5bb0; font: 400 9px 'Press Start 2P', monospace; cursor: pointer;">KIETELEN</button>
+    <div style="flex: 0 0 auto; display: flex; gap: 10px; width: 100%; max-width: 380px; margin: 12px auto 0;">
+      <button data-pou-feed="" style="flex: 1; min-height: 48px; padding: 14px 4px; border-radius: 12px; background: rgba(125,255,176,.14); border: 2px solid #7dffb0; color: #7dffb0; font: 400 9px 'Press Start 2P', monospace; cursor: pointer; touch-action: manipulation; user-select: none; -webkit-user-select: none;">VOEDEN</button>
+      <button data-pou-clean="" style="flex: 1; min-height: 48px; padding: 14px 4px; border-radius: 12px; background: rgba(109,224,255,.14); border: 2px solid #6de0ff; color: #6de0ff; font: 400 9px 'Press Start 2P', monospace; cursor: pointer; touch-action: manipulation; user-select: none; -webkit-user-select: none;">WASSEN</button>
+      <button data-pou-tickle="" style="flex: 1; min-height: 48px; padding: 14px 4px; border-radius: 12px; background: rgba(255,91,176,.14); border: 2px solid #ff5bb0; color: #ff5bb0; font: 400 9px 'Press Start 2P', monospace; cursor: pointer; touch-action: manipulation; user-select: none; -webkit-user-select: none;">KIETELEN</button>
     </div>
   </section>
 </div>
@@ -620,7 +620,7 @@ export default function Arcade() {
           b.style.cssText =
             "position:absolute;left:" +
             (32 + Math.random() * 66) +
-            "%;bottom:110px;width:" +
+            "%;bottom:38%;width:" +
             sz +
             "px;height:" +
             sz +
@@ -736,6 +736,10 @@ export default function Arcade() {
       root!.querySelectorAll<HTMLElement>("[data-screen]").forEach((s) => {
         s.style.display = s.getAttribute("data-screen") === name ? "flex" : "none";
       });
+      // The fixed "terug naar de kaart" pill would overlap each game's own
+      // ◀ MENU button, so it only shows on the menu screen.
+      const back = root!.querySelector<HTMLElement>("[data-back-link]");
+      if (back) back.style.display = name === "menu" ? "inline-flex" : "none";
       window.scrollTo(0, 0);
       // let layout settle so canvas has size
       requestAnimationFrame(() => {

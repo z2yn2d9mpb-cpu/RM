@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Caveat, DM_Sans, JetBrains_Mono, Press_Start_2P } from "next/font/google";
 import "./globals.css";
 
@@ -29,6 +29,14 @@ const pressStart = Press_Start_2P({
 export const metadata: Metadata = {
   title: "Hoera, Ryan is 20! · The Ryan Chronicles",
   description: "Een postkaart door twintig jaar — een verjaardagskaart voor Ryan.",
+};
+
+// viewportFit: "cover" makes env(safe-area-inset-*) available, so the arcade
+// controls can clear the iPhone home indicator / notch.
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
 };
 
 export default function RootLayout({

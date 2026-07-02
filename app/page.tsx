@@ -258,7 +258,7 @@ function IntroHeader() {
           ...revealStyle(title.shown, "rotate(-1.5deg)"),
           fontFamily: FONT_CAVEAT,
           fontWeight: 700,
-          fontSize: 46,
+          fontSize: "clamp(38px, 13vw, 46px)",
           lineHeight: 0.92,
           margin: "8px 0 6px",
         }}
@@ -283,17 +283,10 @@ function IntroHeader() {
   );
 }
 
-function PeekButton({
-  side,
-  index,
-  onSecret,
-}: {
-  side: "left" | "right";
-  index: number;
-  onSecret: () => void;
-}) {
+// Easter egg: hides behind the age-20 card and shyly peeks out from under
+// its bottom edge — barely noticeable until you look for it.
+function PeekButton({ onSecret }: { onSecret: () => void }) {
   const emojiRef = useRef<HTMLSpanElement>(null);
-  const isLeft = side === "left";
 
   return (
     <button
@@ -311,11 +304,10 @@ function PeekButton({
       }}
       style={{
         position: "absolute",
-        top: 40,
-        [isLeft ? "left" : "right"]: 0,
+        bottom: 0,
+        left: "56%",
         zIndex: 0,
         display: "flex",
-        flexDirection: isLeft ? "row-reverse" : "row",
         alignItems: "center",
         gap: 7,
         padding: "9px 14px",
@@ -326,11 +318,8 @@ function PeekButton({
         cursor: "pointer",
         boxShadow: "0 9px 20px -8px rgba(120,40,20,.65)",
         whiteSpace: "nowrap",
-        transform: `translateX(0) rotate(${isLeft ? -2 : 2}deg)`,
-        animation: `${isLeft ? "peekLeft" : "peekRight"} 5.4s ${(
-          0.6 +
-          index * 0.85
-        ).toFixed(2)}s ease-in-out infinite`,
+        transform: "translateX(-50%) translateY(10px) rotate(-2deg)",
+        animation: "peekBottom 8s 1.5s ease-in-out infinite",
       }}
     >
       <span ref={emojiRef} style={{ fontSize: 19, lineHeight: 1 }}>
@@ -353,23 +342,19 @@ function PeekButton({
 function MilestoneCard({
   item,
   index,
-  peekIndex,
   openLightbox,
   onSecret,
 }: {
   item: Milestone;
   index: number;
-  peekIndex: number;
   openLightbox: OpenLightbox;
   onSecret: () => void;
 }) {
   const { ref, shown } = useReveal();
 
   return (
-    <div style={{ position: "relative", marginBottom: 22 }}>
-      {item.peek && item.peekSide && (
-        <PeekButton side={item.peekSide} index={peekIndex} onSecret={onSecret} />
-      )}
+    <div style={{ position: "relative", marginBottom: item.peek ? 36 : 22 }}>
+      {item.peek && <PeekButton onSecret={onSecret} />}
       <div
         ref={ref}
         style={{
@@ -475,22 +460,17 @@ function Timeline({
   openLightbox: OpenLightbox;
   onSecret: () => void;
 }) {
-  let peekCount = 0;
   return (
     <section style={{ padding: "24px 0 10px" }}>
-      {milestones.map((m, i) => {
-        const peekIndex = m.peek ? peekCount++ : -1;
-        return (
-          <MilestoneCard
-            key={m.age}
-            item={m}
-            index={i}
-            peekIndex={peekIndex}
-            openLightbox={openLightbox}
-            onSecret={onSecret}
-          />
-        );
-      })}
+      {milestones.map((m, i) => (
+        <MilestoneCard
+          key={m.age}
+          item={m}
+          index={i}
+          openLightbox={openLightbox}
+          onSecret={onSecret}
+        />
+      ))}
     </section>
   );
 }
@@ -781,12 +761,12 @@ function GlobeSection() {
         borderBottom: "1px dashed #cbbd9c",
       }}
     >
-      <div style={{ height: "340vh", position: "relative" }}>
+      <div className="globe-track" style={{ position: "relative" }}>
         <div
+          className="globe-sticky"
           style={{
             position: "sticky",
             top: 0,
-            height: "100vh",
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
@@ -1283,7 +1263,7 @@ function Cover({ opened, onOpen }: { opened: boolean; onOpen: () => void }) {
         style={{
           fontFamily: FONT_CAVEAT,
           fontWeight: 700,
-          fontSize: 92,
+          fontSize: "clamp(64px, 25vw, 92px)",
           lineHeight: 0.9,
           margin: "16px 0 2px",
           transform: "rotate(-2deg)",
